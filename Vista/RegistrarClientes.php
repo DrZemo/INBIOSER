@@ -32,9 +32,71 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-<?php 
-include ("nvar.php");
- ?>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded sticky-top">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="index.php">
+        <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        INBIOSER
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item " >
+                <a class="nav-link" href="index.php" >
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    Inicio
+                </a>
+            </li>
+            <li class="nav-item " >
+                <a class="nav-link active" href="RegistrarClientes.php" >
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    Registrar Cliente
+                </a>
+            </li>
+            <li class="nav-item " >
+                <a class="nav-link " href="ActualizarClientes.php" >
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    Actualizar Clientes
+                </a>
+            </li>
+            <li class="nav-item " >
+                <a class="nav-link " href="EliminarCliente.php" >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Eliminar Cliente
+                </a>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <?php if(isset($_SESSION['empleado'])||isset($_SESSION['cliente'])){
+                ?>
+
+                <div class="dropdown ml-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i><?php if (isset($_SESSION['empleado'])){echo $_SESSION['empleado'];} if (isset($_SESSION['cliente'])){ echo $_SESSION['cliente'];}?></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="../Controlador/CerrarSesion.php">cerrar session</a>
+                    </div>
+                </div>
+
+                <?php
+            }else{
+                ?>
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    Iniciar Sesion
+                </button>
+                <?php
+            }
+            ?>
+        </form>
+    </div>
+</nav>
 
 <!-- Registro clientes. -->
 <div class="container">

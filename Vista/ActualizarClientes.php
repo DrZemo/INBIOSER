@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if (@!$_SESSION['empleado']){
-    header("Location: ../Vista/Errores/SinPermiso.php");
-}
 ?>
 <!---
 /**
  * Created by PhpStorm.
  * User: CAMILO MEJIA MONSALVE
  * Date: 22/11/2017
- * Time: 23:18
- */-->
+ * Time: 23:06
+ */
+ */--->
 <html lang="en">
 
 <head>
     <title>INBIOSER</title>
     <link rel="shortcut icon" href="../Vista/img/logo.png">
-    <!-- Required meta tags -->
+    <!-Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -34,8 +32,6 @@ if (@!$_SESSION['empleado']){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-
-<!-- Navbar. -->
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded sticky-top">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -55,23 +51,36 @@ if (@!$_SESSION['empleado']){
                 </a>
             </li>
             <li class="nav-item " >
-                <a class="nav-link active" href="RegistrarProducto.php" >
+                <a class="nav-link" href="RegistrarClientes.php" >
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    Registrar Producto
+                    Registrar Cliente
                 </a>
             </li>
-            <li class="nav-item " >
-                <a class="nav-link " href="ActualizarProducto.php" >
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                    Actualizar Producto
-                </a>
-            </li>
-            <li class="nav-item " >
-                <a class="nav-link " href="EliminarProducto.php" >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Eliminar Producto
-                </a>
-            </li>
+            <?php
+            if(!isset($_SESSION['idcliente'])){
+                ?>
+                <li class="nav-item " >
+                    <a class="nav-link disabled" href="ActualizarClientes.php" >
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        Actualizar Clientes
+                    </a>
+                </li>
+                <?php
+            }
+            ?>
+            <?php
+            if(!isset($_SESSION['id_empleado'])){
+                ?>
+                <li class="nav-item " >
+                    <a class="nav-link disabled" href="EliminarCliente.php" >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Eliminar Cliente
+                    </a>
+                </li>
+                <?php
+            }
+            ?>
+
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
@@ -84,7 +93,7 @@ if (@!$_SESSION['empleado']){
                         <i><?php if (isset($_SESSION['empleado'])){echo $_SESSION['empleado'];} if (isset($_SESSION['cliente'])){ echo $_SESSION['cliente'];}?></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="Desconectar.php">cerrar session</a>
+                        <a class="dropdown-item" href="../Controlador/CerrarSesion.php">cerrar session</a>
                     </div>
                 </div>
 
@@ -102,104 +111,69 @@ if (@!$_SESSION['empleado']){
     </div>
 </nav>
 
-<!-- Modal. -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form method="post" action="../Controlador/InicioSesion.php">
+<!-- Registro clientes. -->
+<div class="container">
+    <form action="../Controlador/RegistrarClientesC.php" method="post">
+        <div class="mt-5 mb-5" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Iniciar sesíon</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h1>Actualizar cliente</h1>
+                    <i class="fa fa-reddit-alien fa-5x hidden-xs-down" aria-hidden="true"></i>
                 </div>
                 <div class="modal-body">
-
+                    <!--id cliente-->
+                    <?php
+                    if(isset($_SESSION['id_empleado'])){
+                        ?>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon">
+                                <i class="fa fa-id-card-o" aria-hidden="true"></i>
+                            </div>
+                            <input name="id" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Documento" required>
+                        </div>
+                        <br>
+                        <?php
+                    }
+                    ?>
+                    <!--nombre cliente-->
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon">
-                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                         </div>
-                        <input name="usuario" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Documento">
+                        <input name="usuario" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nombre de cliente" required>
                     </div>
                     <br>
+                    <!--contraseña cliente-->
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon">
                             <i class="fa fa-key" aria-hidden="true"></i>
                         </div>
-                        <input name="contraseña" type="password" class="form-control" id="inlineFormInputGroup" placeholder="Contraseña">
+                        <input name="contraseña" type="password" class="form-control" id="inlineFormInputGroup" placeholder="contraseña" required>
                     </div>
+                    <br>
+                    <!--correo cliente-->
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </div>
+                        <input name="email" type="email" class="form-control" id="inlineFormInputGroup" placeholder="email">
+                    </div>
+                    <br>
+                    <!--DIRECCION cliente-->
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon">
+                            <i class="fa fa-location-arrow" aria-hidden="true"></i>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                        Salir</button>
-                    <button type="submit" name="login" class="btn btn-info">
-                        <i class="fa fa-share-square-o" aria-hidden="true"></i>
-                        Entrar
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Registro producto. -->
-<div class="container">
-    <form action="../Controlador/ResgistrarProductoC.php" method="post" enctype="multipart/form-data">
-        <div class="mt-5 mb-5" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Registrar producto</h1>
-                    <i class="fa fa-archive fa-5x hidden-xs-down" aria-hidden="true"></i>
-                </div>
-                <div class="modal-body">
-                    <!--id producto-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-id-card-o" aria-hidden="true"></i>
                         </div>
-                        <input name="id" type="text" class="form-control" id="inlineFormInputGroup" placeholder="codigo" required>
+                        <input name="direc" type="text" class="form-control" id="inlineFormInputGroup" placeholder="direccion">
                     </div>
                     <br>
-                    <!--nombre producto-->
+                    <!--targeta cliente-->
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon">
-                            <i class="fa fa-object-ungroup" aria-hidden="true"></i>
+                            <i class="fa fa-bullseye" aria-hidden="true"></i>
                         </div>
-                        <input name="nombre" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nombre de producto">
-                    </div>
-                    <br>
-                    <!--correo precio-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                        <input name="precio" type="text" class="form-control" id="inlineFormInputGroup" placeholder="precio">
-                    </div>
-                    <br>
-                    <!--description producto-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-file" aria-hidden="true"></i>
-                        </div>
-                        <input name="descripcion" type="text" class="form-control" id="inlineFormInputGroup" placeholder="descripcion producto maximo 40 caracteres">
-                    </div>
-                    <br>
-                    <!--cantidad-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
-                        </div>
-                        <input name="cantidad" type="number" class="form-control" id="inlineFormInputGroup" min="1"  placeholder="cantidad" required>
-                    </div>
-                    <br>
-                    <!--imagen producto-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-picture-o" aria-hidden="true"></i>
-                        </div>
-                        <input name="imagen" type="file" class="form-control" id="inlineFormInputGroup" placeholder="">
+                        <input name="targ" type="number" class="form-control" id="inlineFormInputGroup" placeholder="targeta de credito">
                     </div>
                     <br>
                 </div>
@@ -213,5 +187,6 @@ if (@!$_SESSION['empleado']){
         </div>
     </form>
 </div>
+
 </body>
 </html>

@@ -55,21 +55,21 @@ if (@!$_SESSION['empleado']){
                 </a>
             </li>
             <li class="nav-item " >
-                <a class="nav-link active" href="RegistrarProducto.php" >
+                <a class="nav-link" href="RegistrarClientes.php" >
                     <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    Registrar Producto
+                    Registrar Cliente
                 </a>
             </li>
             <li class="nav-item " >
-                <a class="nav-link " href="ActualizarProducto.php" >
+                <a class="nav-link " href="ActualizarClientes.php" >
                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                    Actualizar Producto
+                    Actualizar Clientes
                 </a>
             </li>
             <li class="nav-item " >
-                <a class="nav-link " href="EliminarProducto.php" >
+                <a class="nav-link active" href="EliminarCliente.php" >
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                    Eliminar Producto
+                    Eliminar Cliente
                 </a>
             </li>
         </ul>
@@ -84,7 +84,7 @@ if (@!$_SESSION['empleado']){
                         <i><?php if (isset($_SESSION['empleado'])){echo $_SESSION['empleado'];} if (isset($_SESSION['cliente'])){ echo $_SESSION['cliente'];}?></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="Desconectar.php">cerrar session</a>
+                        <a class="dropdown-item" href="../Controlador/CerrarSesion.php">cerrar session</a>
                     </div>
                 </div>
 
@@ -146,12 +146,12 @@ if (@!$_SESSION['empleado']){
 
 <!-- Registro producto. -->
 <div class="container">
-    <form action="../Controlador/ResgistrarProductoC.php" method="post" enctype="multipart/form-data">
+    <form action="../Controlador/EliminarProductoC.php" method="post" enctype="multipart/form-data">
         <div class="mt-5 mb-5" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1>Registrar producto</h1>
-                    <i class="fa fa-archive fa-5x hidden-xs-down" aria-hidden="true"></i>
+                    <h1>Eliminar Cliente</h1>
+                    <i class="fa fa-trash-o fa-5x" aria-hidden="true"></i>
                 </div>
                 <div class="modal-body">
                     <!--id producto-->
@@ -162,51 +162,11 @@ if (@!$_SESSION['empleado']){
                         <input name="id" type="text" class="form-control" id="inlineFormInputGroup" placeholder="codigo" required>
                     </div>
                     <br>
-                    <!--nombre producto-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-object-ungroup" aria-hidden="true"></i>
-                        </div>
-                        <input name="nombre" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nombre de producto">
-                    </div>
-                    <br>
-                    <!--correo precio-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                        </div>
-                        <input name="precio" type="text" class="form-control" id="inlineFormInputGroup" placeholder="precio">
-                    </div>
-                    <br>
-                    <!--description producto-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-file" aria-hidden="true"></i>
-                        </div>
-                        <input name="descripcion" type="text" class="form-control" id="inlineFormInputGroup" placeholder="descripcion producto maximo 40 caracteres">
-                    </div>
-                    <br>
-                    <!--cantidad-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-thermometer-quarter" aria-hidden="true"></i>
-                        </div>
-                        <input name="cantidad" type="number" class="form-control" id="inlineFormInputGroup" min="1"  placeholder="cantidad" required>
-                    </div>
-                    <br>
-                    <!--imagen producto-->
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">
-                            <i class="fa fa-picture-o" aria-hidden="true"></i>
-                        </div>
-                        <input name="imagen" type="file" class="form-control" id="inlineFormInputGroup" placeholder="">
-                    </div>
-                    <br>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                        Registrar
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Eliminar
                     </button>
                 </div>
             </div>

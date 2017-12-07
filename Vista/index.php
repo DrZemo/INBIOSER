@@ -287,7 +287,7 @@ include("carusel.php");
                                             <!-- este arreglo de cantidades queridas por el usuario tiene un problema,
                                             acumula todas las cantidades existentes en un arreglo y lo envia al formulario FacturarCompra,
                                             de esta manera cuando el formulario recorra el arreglo no sabre distinguir que cantidad hace parte de que articulo--->
-                                            <input name="cantidadQuerida[]" type="number" value="'.$row['Cantidad'].'" min="0" max="10" class="form-control" id="inlineFormInputGroup" >
+                                            <input name="cantidadQuerida[]" type="number" value="'.$row['Cantidad'].'" min="1"  class="form-control" id="inlineFormInputGroup" >
                                         </div>
                                         </p>    
                                         <hr class="my-4">
@@ -295,7 +295,6 @@ include("carusel.php");
                                           <label class="form-check-label">
                                             <input type="checkbox" class="form-check-input" name="producto[]" value="'.$row['ID_Producto'].'">
                                             <!--- indica los campos que hay que revisar del vector que tiene todas las cantidades---->
-                                            <input hidden type="number" class="form-check-input" name="indicador[]" value="'.$n.'">
                                             <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>
                                             Añadir al carrito
                                           </label>
