@@ -56,18 +56,30 @@ session_start();
                     Registrar Cliente
                 </a>
             </li>
-            <li class="nav-item " >
-                <a class="nav-link " href="ActualizarClientes.php" >
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                    Actualizar Clientes
-                </a>
-            </li>
-            <li class="nav-item " >
-                <a class="nav-link " href="EliminarCliente.php" >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Eliminar Cliente
-                </a>
-            </li>
+            <?php
+            if(!isset($_SESSION['idcliente'])){
+                ?>
+                <li class="nav-item " >
+                    <a class="nav-link disabled" href="ActualizarClientes.php" >
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        Actualizar Clientes
+                    </a>
+                </li>
+                <?php
+            }
+            ?>
+            <?php
+            if(!isset($_SESSION['id_empleado'])){
+                ?>
+                <li class="nav-item " >
+                    <a class="nav-link disabled" href="EliminarCliente.php" >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Eliminar Cliente
+                    </a>
+                </li>
+                <?php
+            }
+            ?>
         </ul>
 
         <form class="form-inline my-2 my-lg-0">

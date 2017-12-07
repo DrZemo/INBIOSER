@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <?php
 session_start();
+
+if (isset($_SESSION['idcliente'])) {
+    $idcliente = $_SESSION['idcliente'];
+}else{
+    header("Location: ../Vista/Errores/SinPermiso.php");
+}
+
 ?>
 <!---
 /**
