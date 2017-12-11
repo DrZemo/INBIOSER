@@ -264,11 +264,13 @@ include("carusel.php");
                          * el precio a los productos seleccionados, en caso tal de que el cliente no seleccione
                          * productos éste será redirigido a una ventana informativa que le indica que debe seleccionar productos.
                          * */
-                        $n = 0;
+                        $n = 0; $a = "codigo#indice";
                         while($row = mysqli_fetch_array($resultado)){
                             $ruta_img = $row['IMG_Producto'];
-                            echo
-                                '
+                            $z = $row['ID_Producto'].'#'.$n;
+                            if ($row['Cantidad'] > 0){
+                                echo
+                                    '
                             <div class="col-sm-4 col-xs-2">
                                 <div class="card m-2" style="width: 20rem;height: 90vh;">
                                     <img class="card-img-top" style="height: 40vh;" src="../Controlador/fotos/'.$ruta_img.'" alt="Card image cap">
@@ -293,7 +295,8 @@ include("carusel.php");
                                         <hr class="my-4">
                                         <div class="form-check mb-1">
                                           <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" name="producto[]" value="'.$row['ID_Producto'].'">
+                                          <!--- envia el codigo del producto junto con su indicador --->
+                                            <input type="checkbox" class="form-check-input" name="producto[]" value="'.$row['ID_Producto'].'#'.$n.'">
                                             <!--- indica los campos que hay que revisar del vector que tiene todas las cantidades---->
                                             <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>
                                             Añadir al carrito
@@ -303,7 +306,8 @@ include("carusel.php");
                                 </div>
                             </div>
                             ';
-                            $n++;
+                                $n++;
+                            }
                         }
                     }
                     ?>

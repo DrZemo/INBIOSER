@@ -85,37 +85,40 @@ $conection = new Conexion();
                             /*obtiene la cantidad de productos querida por un cliente*/
                             $cantidadQuer = $_POST['cantidadQuerida'];
 
-                            $indicado = $_POST['indicador'];
+                            $indicado = 0;
                             /*se inician las variables que contaran el total de productos y el total del valor */
                             $total = 0; $n = 0; $cantotal = 0;
                             /* recore el arreglo de los productos seleccionados por el cliente */
                             for($i = 0; $i < sizeof($checkProducto); $i++){
+                                /* indicador del producto*/
+                                $indicado = substr($checkProducto[$i],4,2);
                                 /*consulta el valor de los productos y la cantidad exisente */
-                                $consulta = mysqli_query($conection->conectarMysql(),"SELECT NOM_Producto, PRE_Producto, Cantidad FROM tblProducto WHERE ID_Producto = '".$checkProducto[$i]."'");
-                                $cantotal = $cantotal + $cantidadQuer[$i];
+                                $consulta = mysqli_query($conection->conectarMysql(),"SELECT NOM_Producto, PRE_Producto, Cantidad FROM tblProducto WHERE ID_Producto = '"./* obtenemos el id del producto*/substr($checkProducto[$i],0,3)."'");
+                                $cantotal = $cantotal + $cantidadQuer[$indicado];
                                 /*recorre el resultado de la consulta */
                                 while ($result = mysqli_fetch_array($consulta)){
                                     /*verifica que la cantidad querida del producto no sea mayor a la cantidad existente,
                                     si lo es el progrema envia al cliente a un formulario que le informa que la cantidad no esta disponible,
                                     */
-                                    if  ($result['Cantidad']<$cantidadQuer[$i]){
+
+                                    if  ($result['Cantidad']<$cantidadQuer[$indicado]){
                                         header("Location: ../Vista/Errores/CantidadNoDisponible.php");
                                     }
                                     ?>
                                     <input name="CantidadBodega[]" type="text" hidden value="<?php echo $result['Cantidad']; ?>">
-                                    <input name="idProductos[]" type="text" hidden value="<?php echo $checkProducto[$i]; ?>">
-                                    <input name="cantidadesQuer[]" type="text" hidden value="<?php echo $cantidadQuer[$i]; ?>">
+                                    <input name="idProductos[]" type="text" hidden value="<?php echo substr($checkProducto[$i],0,3); ?>">
+                                    <input name="cantidadesQuer[]" type="text" hidden value="<?php echo $cantidadQuer[$indicado]; ?>">
                                     <?php
-                                    $total = $total + ($result['PRE_Producto'] * $cantidadQuer[$i]);
+                                    $total = $total + ($result['PRE_Producto'] * $cantidadQuer[$indicado]);
                                     /*imprime en filas los datos de los productos con su costo ya calculado*/
 
                                         echo '    
                 <tr>
                 <th scope="row">'.($i+1).'</th>
                 <td>'.$result['NOM_Producto'].'</td>
-                <td>'.$cantidadQuer[$i].'</td>
+                <td>'.$cantidadQuer[$indicado].'</td>
                 <td>'.number_format($result['PRE_Producto']).'</td>
-                <td>'.number_format($result['PRE_Producto']*$cantidadQuer[$i]).'</td>
+                <td>'.number_format($result['PRE_Producto']*$cantidadQuer[$indicado]).'</td>
                 </tr>
                 ';
                                 }

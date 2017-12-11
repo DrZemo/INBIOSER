@@ -232,7 +232,7 @@ if (!empty($_POST['factura'])&& !empty($_POST['nombreCli'])&& !empty($_POST['idC
     $nom = $_POST['nombreCli'];
     $idCliente = $_POST['idClient'];
     for ($z = 0; $z < sizeof($VeccFactura);$z++){
-        $consultaDetalleFact = "SELECT C.NOMAPE_Cliente, DF.ID_ITEM,P.PRE_Producto, P.NOM_Producto FROM tblProducto P INNER JOIN tblDETALLE_FACTURA DF 
+        $consultaDetalleFact = "SELECT C.NOMAPE_Cliente, DF.ID_ITEM,P.PRE_Producto, P.NOM_Producto, DF.CANTIDAD FROM tblProducto P INNER JOIN tblDETALLE_FACTURA DF 
 ON P.ID_Producto = DF.ID_Producto INNER JOIN tlbFactura F
 ON F.ID_FACTURA = DF.ID_FACTURA INNER JOIN tblCliente C
 ON F.ID_Cliente = C.ID_Cliente where F.ID_FACTURA = '".$VeccFactura[$z]."';";
@@ -253,19 +253,22 @@ ON F.ID_Cliente = C.ID_Cliente where F.ID_FACTURA = '".$VeccFactura[$z]."';";
                                 <tr>
                                     <th># item</th>
                                     <th>nombre del producto</th>
-                                    <th>producto </th>
+                                    <th>precio de producto </th>
+                                    <th>cantidad de producto </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $total = 0;
+                                $total = 0; $totalCanti = 0;
                                 while($row = mysqli_fetch_array($respues)){
                                     $total = $total + $row['PRE_Producto'];
+                                    $totalCanti = $totalCanti + $row['CANTIDAD'];
                                     ?>
                                     <tr>
                                         <th scope="row"><?php echo $row['ID_ITEM']; ?></th>
                                         <td><?php echo $row['NOM_Producto']; ?></td>
                                         <td><?php echo number_format($row['PRE_Producto']); ?></td>
+                                        <td><?php echo number_format($row['CANTIDAD']); ?></td>
                                     </tr>
                                     <?php
                                 }
@@ -273,8 +276,9 @@ ON F.ID_Cliente = C.ID_Cliente where F.ID_FACTURA = '".$VeccFactura[$z]."';";
                                 ?>
                                 <tr>
                                     <th scope="row">*</th>
-                                    <td>total </td>
+                                    <td><strong>total</strong></td>
                                     <td><?php echo number_format($total); ?></td>
+                                    <td><?php echo $totalCanti; ?></td>
                                 </tr>
                                 </tbody>
                             </table>

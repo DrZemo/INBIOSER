@@ -159,7 +159,7 @@ if (@!$_SESSION['empleado']){
                         <div class="input-group-addon">
                             <i class="fa fa-id-card-o" aria-hidden="true"></i>
                         </div>
-                        <input name="id" type="text" class="form-control" id="inlineFormInputGroup" placeholder="codigo" required>
+                        <input maxlength="3" name="id" type="text" class="form-control" id="inlineFormInputGroup" placeholder="codigo" required>
                     </div>
                     <br>
                     <!--nombre producto-->
